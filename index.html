@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Email OSINT</title>
+  <title>Human Upgrade 2026</title>
 
   <style>
     * {
@@ -15,551 +15,167 @@
 
     body {
       min-height: 100vh;
-      background: #080808;
-      color: #fff;
-      padding: 25px 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #111827, #1e3a8a);
+      color: white;
+      padding: 20px;
     }
 
     .container {
       width: 100%;
-      max-width: 650px;
-      margin: auto;
-    }
-
-    .header {
+      max-width: 430px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 30px 25px;
       text-align: center;
-      margin-bottom: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.35);
     }
 
-    .logo {
-      font-size: 42px;
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: 28px;
-    }
-
-    .subtitle {
-      color: #888;
-      margin-top: 8px;
-      font-size: 14px;
-    }
-
-    .card {
-      background: #111;
-      border: 1px solid #252525;
-      border-radius: 15px;
-      padding: 20px;
+    .icon {
+      font-size: 65px;
       margin-bottom: 15px;
     }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #bbb;
-      font-size: 14px;
+    h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
     }
 
-    .input-box {
-      display: flex;
-      gap: 10px;
-    }
-
-    input {
-      flex: 1;
-      min-width: 0;
-      background: #080808;
-      border: 1px solid #333;
-      color: white;
-      padding: 14px;
-      border-radius: 10px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    input:focus {
-      border-color: #666;
+    .description {
+      color: #d1d5db;
+      line-height: 1.6;
+      margin-bottom: 25px;
     }
 
     button {
+      width: 100%;
+      padding: 15px;
       border: none;
-      background: white;
-      color: black;
-      padding: 0 20px;
-      border-radius: 10px;
+      border-radius: 12px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     button:hover {
-      background: #ddd;
+      background: #1d4ed8;
+      transform: scale(1.02);
     }
 
-    .result {
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #loading {
       display: none;
+      margin-top: 20px;
+      color: #93c5fd;
     }
 
-    .result.show {
-      display: block;
+    #result {
+      display: none;
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 12px;
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.4);
     }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 14px 0;
-      border-bottom: 1px solid #222;
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .key {
-      color: #888;
-    }
-
-    .value {
-      text-align: right;
-      word-break: break-all;
-      max-width: 65%;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 7px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .green {
-      background: #12351f;
-      color: #55e889;
-    }
-
-    .red {
-      background: #381515;
-      color: #ff6666;
-    }
-
-    .yellow {
-      background: #383015;
-      color: #ffd45c;
-    }
-
-    .section-title {
-      font-size: 17px;
+    .error-icon {
+      font-size: 42px;
       margin-bottom: 10px;
     }
 
-    .loading {
-      display: none;
-      text-align: center;
-      color: #888;
-      padding: 20px;
+    .error-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fca5a5;
+      margin-bottom: 8px;
     }
 
-    .loading.show {
-      display: block;
+    .error-text {
+      color: #fecaca;
+      line-height: 1.5;
     }
 
-    .error {
-      display: none;
-      background: #351515;
-      border: 1px solid #612525;
-      color: #ff7777;
-      padding: 12px;
-      border-radius: 10px;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .error.show {
-      display: block;
-    }
-
-    .note {
-      color: #666;
+    .small {
+      margin-top: 20px;
+      color: #9ca3af;
       font-size: 12px;
-      line-height: 1.6;
-      margin-top: 15px;
-    }
-
-    @media (max-width: 500px) {
-      .input-box {
-        flex-direction: column;
-      }
-
-      button {
-        height: 48px;
-      }
-
-      .row {
-        flex-direction: column;
-        gap: 5px;
-      }
-
-      .value {
-        text-align: left;
-        max-width: 100%;
-      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <div class="header">
-    <div class="logo">📧</div>
-    <h1>Email OSINT</h1>
-    <div class="subtitle">
-      Public email & domain intelligence
-    </div>
-  </div>
+    <div class="icon">🧬</div>
 
-  <div class="card">
+    <h1>Download File Upgrade Human Versi 2026</h1>
 
-    <label for="email">Masukkan alamat email</label>
+    <p class="description">
+      Upgrade sistem manusia ke versi terbaru tahun 2026.
+      Silakan tekan tombol di bawah untuk memulai proses upgrade.
+    </p>
 
-    <div class="input-box">
-      <input
-        id="email"
-        type="email"
-        placeholder="contoh@gmail.com"
-        autocomplete="off"
-      >
+    <button id="upgradeBtn" onclick="upgradeHuman()">
+      ⬇️ Download Upgrade Human 2026
+    </button>
 
-      <button onclick="analyzeEmail()">
-        ANALYZE
-      </button>
+    <div id="loading">
+      ⚙️ Mempersiapkan file upgrade...<br>
+      Memeriksa kompatibilitas manusia...
     </div>
 
-    <div id="error" class="error"></div>
+    <div id="result">
+      <div class="error-icon">❌</div>
 
-    <div id="loading" class="loading">
-      🔎 Menganalisis...
+      <div class="error-title">
+        Gagal Upgrade!
+      </div>
+
+      <div class="error-text">
+        gagal upgrade ke versi 2026 karena versi anda terlalu legenda/purba
+      </div>
     </div>
 
-  </div>
-
-  <div id="result" class="result">
-
-    <div class="card">
-
-      <div class="section-title">
-        📋 Informasi Email
-      </div>
-
-      <div class="row">
-        <span class="key">Email</span>
-        <span class="value" id="rEmail">-</span>
-      </div>
-
-      <div class="row">
-        <span class="key">Username</span>
-        <span class="value" id="rUser">-</span>
-      </div>
-
-      <div class="row">
-        <span class="key">Domain</span>
-        <span class="value" id="rDomain">-</span>
-      </div>
-
-      <div class="row">
-        <span class="key">Penyedia</span>
-        <span class="value" id="rProvider">-</span>
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="section-title">
-        🌐 Domain Intelligence
-      </div>
-
-      <div class="row">
-        <span class="key">Domain</span>
-        <span class="value" id="dDomain">-</span>
-      </div>
-
-      <div class="row">
-        <span class="key">HTTPS</span>
-        <span class="value" id="dHttps">-</span>
-      </div>
-
-      <div class="row">
-        <span class="key">Website</span>
-        <span class="value" id="dWebsite">-</span>
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="section-title">
-        🛡️ Keamanan Domain
-      </div>
-
-      <div class="row">
-        <span class="key">SPF</span>
-        <span class="value" id="spf">Memeriksa...</span>
-      </div>
-
-      <div class="row">
-        <span class="key">DMARC</span>
-        <span class="value" id="dmarc">Memeriksa...</span>
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="section-title">
-        🔎 Pencarian Publik
-      </div>
-
-      <div class="row">
-        <span class="key">Google</span>
-        <span class="value">
-          <a id="googleSearch"
-             target="_blank"
-             style="color:#fff;">
-            Cari
-          </a>
-        </span>
-      </div>
-
-      <div class="row">
-        <span class="key">Bing</span>
-        <span class="value">
-          <a id="bingSearch"
-             target="_blank"
-             style="color:#fff;">
-            Cari
-          </a>
-        </span>
-      </div>
-
-      <p class="note">
-        Pencarian hanya membuka mesin pencari dengan query publik.
-        Hasil pencarian tetap bergantung pada informasi yang tersedia
-        secara terbuka di internet.
-      </p>
-
+    <div class="small">
+      Human Upgrade System™ • Version 2026
     </div>
 
   </div>
 
-</div>
+  <script>
+    function upgradeHuman() {
+      const button = document.getElementById("upgradeBtn");
+      const loading = document.getElementById("loading");
+      const result = document.getElementById("result");
 
+      button.disabled = true;
+      button.style.opacity = "0.6";
+      button.innerHTML = "⏳ Memproses...";
 
-<script>
+      loading.style.display = "block";
+      result.style.display = "none";
 
-function escapeHTML(text) {
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
-}
+      setTimeout(() => {
+        loading.style.display = "none";
+        result.style.display = "block";
 
-
-function analyzeEmail() {
-
-  const input = document.getElementById("email");
-  const email = input.value.trim().toLowerCase();
-
-  const error = document.getElementById("error");
-  const loading = document.getElementById("loading");
-  const result = document.getElementById("result");
-
-  error.classList.remove("show");
-  result.classList.remove("show");
-
-  if (!email) {
-    showError("Masukkan alamat email terlebih dahulu.");
-    return;
-  }
-
-  const emailRegex =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (!emailRegex.test(email)) {
-    showError("Format email tidak valid.");
-    return;
-  }
-
-  loading.classList.add("show");
-
-  setTimeout(() => {
-
-    loading.classList.remove("show");
-    result.classList.add("show");
-
-    const parts = email.split("@");
-
-    const username = parts[0];
-    const domain = parts[1];
-
-    document.getElementById("rEmail").textContent = email;
-    document.getElementById("rUser").textContent = username;
-    document.getElementById("rDomain").textContent = domain;
-
-    document.getElementById("dDomain").textContent = domain;
-
-    const providers = {
-      "gmail.com": "Google Gmail",
-      "googlemail.com": "Google Gmail",
-      "outlook.com": "Microsoft Outlook",
-      "hotmail.com": "Microsoft Hotmail",
-      "live.com": "Microsoft Live",
-      "yahoo.com": "Yahoo Mail",
-      "icloud.com": "Apple iCloud",
-      "proton.me": "Proton Mail",
-      "protonmail.com": "Proton Mail"
-    };
-
-    document.getElementById("rProvider").textContent =
-      providers[domain] || "Custom / Unknown";
-
-    document.getElementById("dHttps").innerHTML =
-      '<span class="badge green">HTTPS</span>';
-
-    document.getElementById("dWebsite").innerHTML =
-      `<a href="https://${escapeHTML(domain)}"
-          target="_blank"
-          style="color:#fff">
-          Buka Website
-       </a>`;
-
-    document.getElementById("googleSearch").href =
-      "https://www.google.com/search?q=" +
-      encodeURIComponent('"' + email + '"');
-
-    document.getElementById("bingSearch").href =
-      "https://www.bing.com/search?q=" +
-      encodeURIComponent('"' + email + '"');
-
-    checkDNS(domain);
-
-  }, 700);
-}
-
-
-function showError(message) {
-
-  const error = document.getElementById("error");
-
-  error.textContent = message;
-  error.classList.add("show");
-}
-
-
-async function checkDNS(domain) {
-
-  const spf = document.getElementById("spf");
-  const dmarc = document.getElementById("dmarc");
-
-  spf.innerHTML =
-    '<span class="badge yellow">Checking...</span>';
-
-  dmarc.innerHTML =
-    '<span class="badge yellow">Checking...</span>';
-
-  try {
-
-    const spfURL =
-      "https://dns.google/resolve?name=" +
-      encodeURIComponent(domain) +
-      "&type=TXT";
-
-    const spfResponse =
-      await fetch(spfURL);
-
-    const spfData =
-      await spfResponse.json();
-
-    const txtRecords =
-      (spfData.Answer || [])
-      .map(x => x.data)
-      .join(" ");
-
-    if (txtRecords.includes("v=spf1")) {
-
-      spf.innerHTML =
-        '<span class="badge green">FOUND</span>';
-
-    } else {
-
-      spf.innerHTML =
-        '<span class="badge red">NOT FOUND</span>';
-
+        button.disabled = false;
+        button.style.opacity = "1";
+        button.innerHTML = "🔄 Coba Upgrade Lagi";
+      }, 2500);
     }
-
-  } catch {
-
-    spf.innerHTML =
-      '<span class="badge yellow">UNKNOWN</span>';
-
-  }
-
-
-  try {
-
-    const dmarcDomain =
-      "_dmarc." + domain;
-
-    const dmarcURL =
-      "https://dns.google/resolve?name=" +
-      encodeURIComponent(dmarcDomain) +
-      "&type=TXT";
-
-    const dmarcResponse =
-      await fetch(dmarcURL);
-
-    const dmarcData =
-      await dmarcResponse.json();
-
-    const records =
-      (dmarcData.Answer || [])
-      .map(x => x.data)
-      .join(" ");
-
-    if (records.includes("v=DMARC1")) {
-
-      dmarc.innerHTML =
-        '<span class="badge green">FOUND</span>';
-
-    } else {
-
-      dmarc.innerHTML =
-        '<span class="badge red">NOT FOUND</span>';
-
-    }
-
-  } catch {
-
-    dmarc.innerHTML =
-      '<span class="badge yellow">UNKNOWN</span>';
-
-  }
-
-}
-
-
-document.getElementById("email")
-  .addEventListener("keydown", function(e) {
-
-    if (e.key === "Enter") {
-      analyzeEmail();
-    }
-
-  });
-
-</script>
+  </script>
 
 </body>
 </html>
